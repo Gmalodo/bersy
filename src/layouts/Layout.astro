@@ -1,0 +1,103 @@
+---
+import '../styles/global.css'
+import chateau from "../assets/berzy-chateau.jpg"
+import landscape from "../assets/landscape.svg"
+import landscapeSecond from "../assets/2.svg"
+import flowers from "../assets/flowers.svg"
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<link rel="preload" href={chateau.src} as="image"/>
+		<link rel="preload" href={landscape.src} as="image" type="image/svg+xml"/>
+		<link rel="preload" href={landscapeSecond.src} as="image" type="image/svg+xml"/>
+		<link rel="preload" href={flowers.src} as="image" type="image/svg+xml"/>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Château de Berzy-le-Sec – Activités, Patrimoine & Médiéval</title>
+		<meta name="description" content="Découvrez le patrimoine vivant du Château de Berzy-le-Sec à travers des activités pédagogiques, des stages de restauration et des événements culturels autour du Moyen Âge." />
+		<meta name="robots" content="index, follow" />
+		<!-- TODO Canonical (met à jour l'URL si nécessaire) -->
+		<link rel="canonical" href="https://www.exemple.com/" />
+		<meta http-equiv="Content-Language" content="fr" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta property="og:title" content="Château de Berzy-le-Sec" />
+		<meta property="og:description" content="Activités, patrimoine vivant, stages et médiéval au Château de Berzy-le-Sec." />
+		<meta property="og:type" content="website" />
+		<!--TODO-->
+		<meta property="og:url" content="https://www.exemple.com/" />
+		<meta property="og:image" content="../assets/berzy-chateau.jpg" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Château de Berzy-le-Sec" />
+		<meta name="twitter:description" content="Activités pédagogiques et patrimoine médiéval à découvrir au Château de Berzy-le-Sec." />
+		<meta name="twitter:image" content="../assets/berzy-chateau.jpg" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+<script>
+	window.addEventListener("DOMContentLoaded", () => {
+		const bg = document.getElementById("bg");
+		const middle = document.getElementById("middle");
+		const flowers = document.getElementById("flowers");
+		const indicator = document.getElementById("scroll-indicator");
+		const home = document.getElementById("home-bg");
+
+		function interpolate(value: number, inputRange: number[], outputRange: number[]) {
+			for (let i = 0; i < inputRange.length - 1; i++) {
+				const inMin = inputRange[i];
+				const inMax = inputRange[i + 1];
+				const outMin = outputRange[i];
+				const outMax = outputRange[i + 1];
+
+				if (value >= inMin && value <= inMax) {
+					const ratio = (value - inMin) / (inMax - inMin);
+					return outMin + ratio * (outMax - outMin);
+				}
+			}
+			return value < inputRange[0]
+				? outputRange[0]
+				: outputRange[outputRange.length - 1];
+		}
+
+		window.addEventListener("scroll", () => {
+			const scrollY = window.scrollY;
+
+			if (!flowers || !middle || !bg || !indicator || !home) return;
+			// Flowers
+			const flowersY = interpolate(scrollY, [0, 600], [0, 100]);
+			const flowersOpacity = interpolate(scrollY, [0, 600], [1, 0]);
+			flowers.style.transform = `translateY(${flowersY}px)`;
+			flowers.style.opacity = `${flowersOpacity}`;
+
+			// Middle
+			const middleY = interpolate(scrollY, [0, 700, 1000], [0, 50, 500]);
+			const middleScale = interpolate(scrollY, [0, 700], [1, 1.2]);
+			middle.style.transform = `translateY(${middleY}px) scale(${middleScale})`;
+
+			// Background
+			const bgY = interpolate(scrollY, [0, 700, 1000, 1150], [0, 0, 300, 1500]);
+			const bgScale = interpolate(scrollY, [0, 700, 1000, 1150], [1, 1.1, 2, 10]);
+			bg.style.transform = `translateY(${bgY}px) scale(${bgScale})`;
+
+			// Scroll indicator (content fade)
+			const indicatorOpacity = interpolate(scrollY, [0, 800, 1000], [1, 1, 0]);
+			indicator.style.opacity = `${indicatorOpacity}`;
+
+			const homeOpacity = interpolate(scrollY, [0, 1000, 1150], [1, 1, 0]);
+			home.style.opacity = `${homeOpacity}`;
+
+		});
+	});
+</script>

@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HomeBackground from '../components/homeBackground.astro'
+import { Image } from 'astro:assets';
+import chateau from "../assets/berzy-chateau.jpg"
+
+---
+
+<Layout>
+	<div class="relative w-full h-screen">
+		<HomeBackground/>
+		<div id="fade-target" class="relative z-10 h-[300vh] w-full bg-transparent duration-300">
+			<div class="fixed lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-amber-50/60 rounded-2xl shadow-2xl border-2 border-gray-200 flex flex-col justify-around">
+				<h1 class="font-bold font-serif text-center text-4xl lg:mt-12 mt-8">
+					<span class="hidden">les activitées du</span>Chateau de berzy le sec
+				</h1>
+				<p class="lg:m-12 lg:mb-8 m-8 mb-6">Nous vous proposons de découvrir le patrimoine autrement à travers nos stages techniques
+					mêlant savoir-faire et archéologie expérimentale, en visitant nos chantiers de restauration ou en
+					participant à nos activités pédagogiques portées sur l’art de bâtir au Moyen-Age.</p>
+				<Image
+					src={chateau}
+					alt="chateau de berzy le sec"
+					width={300}
+					height={120}
+					class="w-3/4 m-auto"
+					fetchpriority="high"
+					loading="eager"
+				/>
+				<p class="m-16 mt-12 text-center tracking-wide text-xl font-medium lg:block hidden ">
+					Venez participer a nos activitées ludique dans ce sonptueux cadre qu'est la chateau de berzy !!</p>
+			</div>
+		</div>
+	</div>
+	<script is:inline>
+	const fadeEl = document.getElementById('fade-target');
+	let ticking = false;
+	let onBot = false;
+	let isAnimated = false;
+
+	async function smoothScrollTo(target, duration) {
+		return new Promise((resolve) => {
+			const scrollY = window.scrollY;
+			const distance = target - scrollY;
+			let startTime = null;
+
+			function animation(currentTime) {
+				if (startTime === null) startTime = currentTime;
+				const elapsed = currentTime - startTime;
+				const progress = Math.min(elapsed / duration, 1);
+
+				const ease = progress * progress;
+
+				window.scrollTo(0, scrollY + distance * ease);
+
+				if (elapsed < duration) {
+					requestAnimationFrame(animation);
+				} else {
+					resolve();
+				}
+			}
+
+			requestAnimationFrame(animation);
+		})
+	}
+
+	async function onScroll() {
+		let scrollY = window.scrollY;
+		if (scrollY > 100 && !onBot && !isAnimated) {
+			console.log("descent")
+			isAnimated = true;
+			await smoothScrollTo(1150, 2000);
+			scrollY = 1300
+			onBot = true;
+			isAnimated = false;
+		}
+		if (scrollY < 1150 && onBot && !isAnimated) {
+			console.log("monte", scrollY);
+			isAnimated = true;
+			await smoothScrollTo(0, 1000);
+			scrollY = 0
+			onBot = false;
+			isAnimated = false;
+		}
+
+		if (!ticking) {
+			window.requestAnimationFrame(() => {
+				fadeEl.style.opacity = scrollY > 900 ? '0' : '1';
+				ticking = false;
+			});
+			ticking = true;
+		}
+	}
+
+	window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+</Layout>
