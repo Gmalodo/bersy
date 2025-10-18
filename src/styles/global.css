@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@media (min-aspect-ratio: 7/3) {
+    #fire-wrapper {
+        display: none;
+    }
+}

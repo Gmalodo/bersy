@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HomeBackground from '../components/homeBackground.astro'
+import Page from '../components/page.astro'
 import { Image } from 'astro:assets';
 import chateau from "../assets/berzy-chateau.jpg"
 
@@ -9,7 +10,7 @@ import chateau from "../assets/berzy-chateau.jpg"
 <Layout>
 	<div class="relative w-full h-screen">
 		<HomeBackground/>
-		<div id="fade-target" class="relative z-10 h-[300vh] w-full bg-transparent duration-300">
+		<div id="fade-target" class="relative z-10 h-[550vh] w-full bg-transparent duration-300">
 			<div class="fixed lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-amber-50/60 rounded-2xl shadow-2xl border-2 border-gray-200 flex flex-col justify-around">
 				<h1 class="font-bold font-serif text-center text-4xl lg:mt-12 mt-8">
 					<span class="hidden">les activitées du</span>Chateau de berzy le sec
@@ -20,19 +21,22 @@ import chateau from "../assets/berzy-chateau.jpg"
 				<Image
 					src={chateau}
 					alt="chateau de berzy le sec"
-					width={300}
-					height={120}
-					class="w-3/4 m-auto"
+					width={350}
+					height={150}
+					class="w-auto m-8 rounded-xl"
 					fetchpriority="high"
 					loading="eager"
 				/>
-				<p class="m-16 mt-12 text-center tracking-wide text-xl font-medium lg:block hidden ">
-					Venez participer a nos activitées ludique dans ce sonptueux cadre qu'est la chateau de berzy !!</p>
+				<!--<p class="m-16 mt-12 text-center tracking-wide text-xl font-medium lg:block hidden ">-->
+				<!--	Venez participer a nos activitées ludique dans ce sonptueux cadre qu'est la chateau de berzy !!</p>-->
 			</div>
 		</div>
+		<Page/>
 	</div>
 	<script is:inline>
 	const fadeEl = document.getElementById('fade-target');
+	const rightCol = document.getElementById("right-col-content");
+
 	let ticking = false;
 	let onBot = false;
 	let isAnimated = false;
@@ -66,20 +70,71 @@ import chateau from "../assets/berzy-chateau.jpg"
 	async function onScroll() {
 		let scrollY = window.scrollY;
 		if (scrollY > 100 && !onBot && !isAnimated) {
-			console.log("descent")
 			isAnimated = true;
 			await smoothScrollTo(1150, 2000);
 			scrollY = 1300
 			onBot = true;
 			isAnimated = false;
+			document.getElementById("page-bg").classList.remove("hidden")
 		}
 		if (scrollY < 1150 && onBot && !isAnimated) {
-			console.log("monte", scrollY);
 			isAnimated = true;
 			await smoothScrollTo(0, 1000);
 			scrollY = 0
 			onBot = false;
 			isAnimated = false;
+			document.getElementById("page-bg").classList.add("hidden")
+		}
+
+		const visite = document.getElementById("visite");
+		const pot = document.getElementById("pot");
+		const bois = document.getElementById("bois");
+		const pierre = document.getElementById("pierre");
+
+		let visiteHidden = false
+		let potHidden = true
+		let boisHidden = true
+		let pierreHidden = true
+
+		if (scrollY < 1750 && scrollY > 1150 && visiteHidden){
+			visite.classList.remove("opacity-0");
+			visite.classList.add("opacity-100");
+			pot.classList.remove("opacity-100");
+			pot.classList.add("opacity-0");
+			potHidden = true
+			visiteHidden = false
+		}
+
+		if (scrollY < 2350 && scrollY > 1750 && potHidden){
+			pot.classList.remove("opacity-0");
+			pot.classList.add("opacity-100");
+			visite.classList.remove("opacity-100");
+			visite.classList.add("opacity-0");
+			bois.classList.remove("opacity-100");
+			bois.classList.add("opacity-0");
+			visiteHidden = true
+			potHidden = false
+			boisHidden = true
+		}
+
+		if (scrollY < 2950 && scrollY > 2350 && boisHidden){
+			bois.classList.remove("opacity-0");
+			bois.classList.add("opacity-100");
+			pot.classList.remove("opacity-100");
+			pot.classList.add("opacity-0");
+			pierre.classList.remove("opacity-100");
+			pierre.classList.add("opacity-0");
+			potHidden = true
+			boisHidden = false
+			pierreHidden = true
+		}
+		if (scrollY < 3550 && scrollY > 2950 && pierreHidden){
+			pierre.classList.remove("opacity-0");
+			pierre.classList.add("opacity-100");
+			bois.classList.remove("opacity-100");
+			bois.classList.add("opacity-0");
+			boisHidden = false
+			pierreHidden = true
 		}
 
 		if (!ticking) {
@@ -89,8 +144,30 @@ import chateau from "../assets/berzy-chateau.jpg"
 			});
 			ticking = true;
 		}
+
+		const contentY = interpolate(scrollY, [1100, 3000], [0, -200 * window.innerHeight / 100]);
+
+		rightCol.style.transform = `translateY(${contentY}px)`;
 	}
 
 	window.addEventListener('scroll', onScroll, { passive: true });
-</script>
+
+
+	function interpolate(value, inputRange, outputRange) {
+		for (let i = 0; i < inputRange.length - 1; i++) {
+			const inMin = inputRange[i];
+			const inMax = inputRange[i + 1];
+			const outMin = outputRange[i];
+			const outMax = outputRange[i + 1];
+
+			if (value >= inMin && value <= inMax) {
+				const ratio = (value - inMin) / (inMax - inMin);
+				return outMin + ratio * (outMax - outMin);
+			}
+		}
+		return value < inputRange[0]
+			? outputRange[0]
+			: outputRange[outputRange.length - 1];
+	}
+	</script>
 </Layout>

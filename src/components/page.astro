@@ -1,0 +1,73 @@
+---
+import PageBackground from "../assets/pageBackground.svg"
+import FireFront from "../assets/fireFront.svg"
+import LottieAnimation from "astro-integration-lottie/Lottie.astro";
+import Pot from "../assets/pot.jpeg"
+import Bois from "../assets/menuisier.jpeg"
+import Pierre from "../assets/pierre.jpeg"
+import Visite from "../assets/visite.jpeg"
+import {Image} from "astro:assets";
+---
+<div class="fixed hidden top-0 left-0 w-screen h-screen overflow-hidden pointer-events-none z-0" id="page-bg">
+    <div class="relative w-full h-full">
+        <Image src={PageBackground} alt={"background"} class="w-full h-full object-cover" />
+        <div id="fire-wrapper" class="absolute left-[50%] bottom-0 translate-x-[120%] z-20">
+            <LottieAnimation src="Fire.json" class="w-44 -mt-24" autoplay="visible" />
+            <FireFront class="relative -mt-20 z-30" />
+        </div>
+    </div>
+    <div class="fixed z-50 overflow-hidden backdrop-blur-sm top-1/2 left-1/2 transform -translate-1/2 overscroll-y-contain h-[80%] lg:w-[64rem] w-[75%] bg-amber-50/60 rounded-2xl shadow-2xl border-2 border-gray-200 flex flex-row justify-around">
+        <div class="h-auto w-1/2 m-8 relative">
+            <Image
+                id={"visite"}
+                src={Visite}
+                alt={"image du chateau"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-100 rounded-xl"}
+                width={750}
+                height={400}
+            />
+            <Image
+                id={"pot"}
+                src={Pot}
+                alt={"image de l'atelier potteries"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 rounded-xl"}
+                width={750}
+                height={400}
+            />
+            <Image
+                id={"bois"}
+                src={Bois}
+                alt={"image de l'atelier menuiserie"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 rounded-xl"}
+                width={750}
+                height={400}
+            />
+            <Image
+                id={"pierre"}
+                src={Pierre}
+                alt={"image de l'atelier potteries"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 rounded-xl"}
+                width={750}
+                height={400}
+            />
+        </div>
+        <div id="right-col" class="w-1/2 relative overflow-hidden bg-white/50 m-8 ml-0 rounded-xl">
+            <div id="right-col-content" class="absolute top-0 left-0 w-full p-8">
+                <div class="h-[32rem] flex flex-col justify-center">
+                    <h2>Visite du chateau et activités</h2>
+                    <p>voici l'aperçue de nos activités</p>
+                </div>
+                <div class="h-[32rem] flex flex-col justify-center">
+                    <h3>pot</h3>
+                </div>
+                <div class="h-[32rem] flex flex-col justify-center">
+                    <h3>bois</h3>
+                </div>
+                <div class="h-[32rem] flex flex-col justify-center">
+                    <h3>pierre</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
