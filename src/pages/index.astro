@@ -11,9 +11,9 @@ import "@fontsource/roboto/500.css";
 <Layout>
 	<div class="relative w-full h-screen">
 		<HomeBackground/>
-		<div class="h-[670vh] w-full text-[#000000]">
-			<div id="fade-target" class="relative z-10 h-[670vh] w-full bg-transparent duration-300">
-				<div class="fixed lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-surface-container/60 backdrop-blur-sm border-2 border-outline-variant rounded-2xl shadow-2xl flex flex-col justify-around">
+		<div class="h-[1000vh] w-full text-[#000000]">
+			<div id="fade-target" class="relative z-10 h-[1000vh] w-full bg-transparent duration-300">
+				<div class="fixed overflow-hidden lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-surface-container/60 backdrop-blur-sm border-2 border-outline-variant rounded-2xl shadow-2xl flex flex-col justify-around">
 					<h1 class="text-headline-large font-neutral text-center font-extrabold lg:mt-12 mt-8">
 						<span class="hidden">les activitées du</span>Chateau de berzy le sec
 					</h1>
@@ -44,17 +44,9 @@ import "@fontsource/roboto/500.css";
 	let onBot = false;
 	let isAnimated = false;
 
-	const visite = document.getElementById("visite");
-	const pot = document.getElementById("pot");
-	const bois = document.getElementById("bois");
-	const pierre = document.getElementById("pierre");
 	const content = document.getElementById("content");
 	const contact = document.getElementById("contact");
 
-	let visiteHidden = false
-	let potHidden = true
-	let boisHidden = true
-	let pierreHidden = true
 	let isContact = false
 
 	async function smoothScrollTo(target, duration) {
@@ -83,6 +75,69 @@ import "@fontsource/roboto/500.css";
 		})
 	}
 
+	const mapping = {
+		"section-visite": "visite",
+		"section-poterie": "pot",
+		"section-menuiserie": "bois",
+		"section-pierre": "pierre",
+	};
+
+	const sections = document.querySelectorAll("#right-col-content section");
+	const images = document.querySelectorAll("#content img")
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				const sectionId = entry.target.id;
+				const imageId = mapping[sectionId];
+
+				if (!imageId) return;
+
+				if (entry.isIntersecting) {
+					// rendre visible l’image correspondante
+					images.forEach((img) => {
+						if (img.id === imageId) {
+							img.classList.remove("opacity-0");
+							img.classList.add("opacity-100");
+						} else {
+							img.classList.remove("opacity-100");
+							img.classList.add("opacity-0");
+						}
+					});
+				}
+			});
+		},
+		{
+			root: null, // viewport
+			threshold: 0.2, // déclenche quand 50% de la section est visible
+		}
+	);
+	sections.forEach((section) => observer.observe(section));
+
+
+	let scale = 1;
+	if (window.innerWidth < 400) {
+		scale = 1.3;
+	} else if (window.innerWidth < 500) {
+		scale = 1.22;
+	} else if (window.innerWidth < 600) {
+		scale = 1.18;
+	} else if (window.innerWidth < 630) {
+		scale = 1.16;
+	} else if (window.innerWidth < 650) {
+		scale = 0.97;
+	} else if (window.innerWidth < 700) {
+		scale = 0.95;
+	} else if (window.innerWidth < 750) {
+		scale = 0.93;
+	} else if (window.innerWidth < 850) {
+		scale = 0.91;
+	} else if (window.innerWidth < 1024) {
+		scale = 0.9;
+	}
+
+	const s5 = 4300 * scale;
+
 	async function onScroll() {
 		let scrollY = window.scrollY;
 		if (scrollY > 100 && !onBot && !isAnimated) {
@@ -102,61 +157,20 @@ import "@fontsource/roboto/500.css";
 			document.getElementById("page-bg").classList.add("hidden")
 		}
 
-		if (scrollY < 1550 && scrollY > 1150 && visiteHidden){
-			visite.classList.remove("opacity-0");
-			visite.classList.add("opacity-100");
-			pot.classList.remove("opacity-100");
-			pot.classList.add("opacity-0");
-			potHidden = true
-			visiteHidden = false
-		}
-
-		if (scrollY < 2290 && scrollY > 1550 && potHidden){
-			pot.classList.remove("opacity-0");
-			pot.classList.add("opacity-100");
-			visite.classList.remove("opacity-100");
-			visite.classList.add("opacity-0");
-			bois.classList.remove("opacity-100");
-			bois.classList.add("opacity-0");
-			visiteHidden = true
-			potHidden = false
-			boisHidden = true
-		}
-
-		if (scrollY < 3150 && scrollY > 2290 && boisHidden){
-			bois.classList.remove("opacity-0");
-			bois.classList.add("opacity-100");
-			pot.classList.remove("opacity-100");
-			pot.classList.add("opacity-0");
-			pierre.classList.remove("opacity-100");
-			pierre.classList.add("opacity-0");
-			potHidden = true
-			boisHidden = false
-			pierreHidden = true
-		}
-		if (scrollY < 3800 && scrollY > 3150 && pierreHidden){
-			pierre.classList.remove("opacity-0");
-			pierre.classList.add("opacity-100");
-			bois.classList.remove("opacity-100");
-			bois.classList.add("opacity-0");
-			boisHidden = true
-			pierreHidden = false
-		}
-
-		if (scrollY < 3800 && isContact) {
+		if (scrollY < s5 && isContact) {
 			content.classList.remove("opacity-0");
 			content.classList.add("opacity-100");
 			contact.classList.remove("opacity-100");
 			contact.classList.add("opacity-0");
-			isContact = false
+			isContact = false;
 		}
-		console.log(isContact);
-		if (scrollY > 3800 && !isContact) {
+
+		if (scrollY > s5 && !isContact) {
 			content.classList.add("opacity-0");
 			content.classList.remove("opacity-100");
 			contact.classList.add("opacity-100");
 			contact.classList.remove("opacity-0");
-			isContact = true
+			isContact = true;
 		}
 
 		if (!ticking) {
@@ -171,7 +185,7 @@ import "@fontsource/roboto/500.css";
 			ticking = true;
 		}
 
-		const contentY = interpolate(scrollY, [1100, 4000], [0, -200 * window.innerHeight / 90]);
+		const contentY = interpolate(scrollY, [1100, 6500], [0, -500 * window.innerHeight / 100]);
 
 		rightCol.style.transform = `translateY(${contentY}px)`;
 	}

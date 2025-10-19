@@ -78,6 +78,6 @@
  
 }
 @theme {
-  --font-expressive: "sans-serif";
+  --font-expressive: "Roboto", "sans-serif";
   --font-neutral: "Roboto", "sans-serif";
 }

@@ -21,13 +21,13 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
             <FireFront class="relative -mt-20 z-30" />
         </div>
     </div>
-    <div id="content" class="opacity-100 duration-500 fixed z-30 overflow-hidden backdrop-blur-sm top-1/2 left-1/2 transform -translate-1/2 overscroll-y-contain h-[80%] lg:w-[64rem] w-[75%] bg-surface-container/60 rounded-2xl shadow-2xl border-2 border-outline-variant flex flex-row justify-around">
-        <div class="h-auto w-1/2 m-8 relative">
+    <div id="content" class="opacity-100 duration-500 fixed z-30 overflow-hidden backdrop-blur-sm top-1/2 left-1/2 transform -translate-1/2 overscroll-y-contain lg:h-4/5 h-9/10 lg:w-[64rem] w-[90%] bg-surface-container/60 rounded-2xl shadow-2xl border-2 border-outline-variant flex lg:flex-row flex-col">
+        <div class="lg:h-auto lg:w-1/2 h-[400%] w-11/12 m-8 lg:ml-8 lg:mb-8 mb-0 mx-auto relative">
             <Image
                 id={"visite"}
                 src={Visite}
                 alt={"image du chateau"}
-                class={"object-cover w-full h-full transition duration-1000 absolute opacity-100 rounded-xl"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-100 lg:rounded-xl rounded-t-xl"}
                 width={750}
                 height={400}
             />
@@ -35,7 +35,7 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                 id={"pot"}
                 src={Pot}
                 alt={"image de l'atelier potteries"}
-                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 rounded-xl"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 lg:rounded-xl rounded-t-xl"}
                 width={750}
                 height={400}
             />
@@ -43,7 +43,7 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                 id={"bois"}
                 src={Bois}
                 alt={"image de l'atelier menuiserie"}
-                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 rounded-xl"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 lg:rounded-xl rounded-t-xl"}
                 width={750}
                 height={400}
             />
@@ -51,14 +51,14 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                 id={"pierre"}
                 src={Pierre}
                 alt={"image de l'atelier potteries"}
-                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 rounded-xl"}
+                class={"object-cover w-full h-full transition duration-1000 absolute opacity-0 lg:rounded-xl rounded-t-xl"}
                 width={750}
                 height={400}
             />
         </div>
-        <div id="right-col" class="w-1/2 relative overflow-hidden bg-white/50 m-8 ml-0 rounded-xl">
-            <div id="right-col-content" class="absolute top-0 left-0 w-full">
-                <div class="h-[38rem] flex flex-col justify-center">
+        <div id="right-col" class="lg:w-1/2 w-11/12 overflow-hidden bg-surface-container/80 lg:m-8 mx-auto mb-8 mt-0 lg:rounded-xl rounded-b-xl">
+            <div id="right-col-content" class="top-0 left-0 w-full p-8">
+                <section id="section-visite" class="lg:h-[38rem] h-auto flex flex-col lg:justify-center lg:mb-0 mb-48 sm:mb-16">
                     <h2 class="font-neutral text-center text-headline-medium my-8">Visite du chateau et activités</h2>
                     <p class="mb-8 text-[1.35rem]">
                         Le château de Berzy vous propose une visite guidée à la découverte de son architecture
@@ -69,8 +69,8 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                         En complément, le château propose des ateliers manuels pour petits et grands.
                         Une expérience conviviale et enrichissante à partager en groupe.
                     </p>
-                </div>
-                <div class="h-[32rem] flex flex-col justify-center">
+                </section>
+                <section id="section-poterie" class="h-[32rem] flex flex-col justify-center lg:mb-0 mb-48 sm:mb-16">
                     <h3 class="font-neutral text-center text-headline-medium my-8">Ateliers potteries</h3>
                     <p class="mb-8 text-[1.35rem]">
                         L’atelier de poterie du château de Berzy invite les visiteurs à façonner leurs propres créations
@@ -81,8 +81,8 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                         uniques, à la fois authentiques et pleines de caractère. Une belle façon de renouer avec un
                         savoir-faire ancestral tout en repartant avec un souvenir fait main.
                     </p>
-                </div>
-                <div class="h-[32rem] flex flex-col justify-center">
+                </section>
+                <section id="section-menuiserie" class="h-[32rem] flex flex-col justify-center lg:mb-0 mb-48 sm:mb-16 sm:pt-0 pt-32">
                     <h3 class="font-neutral text-center text-headline-medium my-8">Ateliers menuiserie</h3>
                     <p class="mb-8 text-[1.35rem]">
                         L’atelier de menuiserie du château de Berzy propose une immersion dans l’art du travail du bois
@@ -94,8 +94,8 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                         Cet atelier allie découverte, habileté et plaisir du geste, offrant à chacun la satisfaction de
                         façonner un objet unique dans la pure tradition des artisans médiévaux.
                     </p>
-                </div>
-                <div class="h-[32rem] flex flex-col justify-center">
+                </section>
+                <section id="section-pierre" class="h-[32rem] flex flex-col justify-center mb-48 sm:mb-16 lg:mb-0 sm:pt-0 pt-48">
                     <h3 class="font-neutral text-center text-headline-medium my-8">Taille de pierre</h3>
                     <p class="mb-8 text-[1.35rem]">
                         L’atelier de taille de pierre du château de Berzy permet de s’initier à une discipline
@@ -107,12 +107,12 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                         la précision propres à cet art ancestral. Une expérience immersive qui relie directement au
                         travail des bâtisseurs du château.
                     </p>
-                </div>
+                </section>
             </div>
         </div>
     </div>
 </div>
-<div id="contact" class="duration-500 md:w-3/4 w-full bg-surface-container-highest lg:flex rounded-3xl overflow-hidden m-auto max-w-[96rem] fixed z-50 top-1/2 left-1/2 transform -translate-1/2 opacity-0">
+<div id="contact" class="duration-500 md:w-3/4 w-full bg-surface-container-highest h-5/6 overflow-y-scroll lg:flex rounded-3xl overflow-hidden m-auto max-w-[96rem] fixed z-50 top-1/2 left-1/2 transform -translate-1/2 opacity-0">
     <div class="left flex-1 p-16 !pb-12 pt-8">
         <div class="flex gap-4 group rounded-xl mt-2">
             <div class="transition-all duration-300 flex items-center justify-center rounded-lg  h-12 w-12 border border-outline-variant">
