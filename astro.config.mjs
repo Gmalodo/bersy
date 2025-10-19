@@ -1,33 +1,38 @@
-import viteCompression from 'vite-plugin-compression';
-import { visualizer } from 'rollup-plugin-visualizer';
-import tailwindcss from "@tailwindcss/vite";
-import {defineConfig} from "astro/config";
-import sitemap from "@astrojs/sitemap"
+// @ts-check
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import tailwindcss from '@tailwindcss/vite';
+import {vitePlugin} from "@udixio/theme";
+import sitemap from '@astrojs/sitemap';
+import robotsTxt from 'astro-robots-txt';
+import compressor from "astro-compressor";
 import vercel from '@astrojs/vercel';
 import lottie from "astro-integration-lottie";
 
+// https://astro.build/config
 export default defineConfig({
   integrations: [
+    lottie(),
+    react(),
+    robotsTxt(),
+    compressor(),
+    (await import("@playform/compress")).default(),
     sitemap(),
-    lottie()
   ],
+  output: "static",
+  site: "https://temp.fr/",
+  compressHTML: true,
+  experimental: {},
   vite: {
-    plugins: [
-      tailwindcss(),
-      viteCompression({ algorithm: 'brotliCompress' }),
-      visualizer({
-        open: true,
-        brotliSize: true,
-        filename: 'dist/stats.html'
-      })
-    ],
+    plugins: [tailwindcss(), vitePlugin()],
     build: {
-      minify: 'esbuild',
-      cssMinify: true,
+      rollupOptions: {
+        external: ["pages/send-message.ts", "validator", "nodemailer", "xss"]
+      }
     },
+    ssr: {
+      noExternal: ["@udixio/theme", "astro-obfuscate", "react-google-recaptcha-v3"]
+    }
   },
-  adapter: vercel({
-    isr: true,
-    maxDuration: 60
-  })
+  adapter: vercel()
 });

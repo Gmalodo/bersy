@@ -7,16 +7,21 @@ import Bois from "../assets/menuisier.jpeg"
 import Pierre from "../assets/pierre.jpeg"
 import Visite from "../assets/visite.jpeg"
 import {Image} from "astro:assets";
+import {FormContact} from "./FormContact"
+import {ObfuscatedEmail} from 'astro-obfuscate/components';
+import {Icon} from "@udixio/ui-react"
+import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
+
 ---
 <div class="fixed hidden top-0 left-0 w-screen h-screen overflow-hidden pointer-events-none z-0" id="page-bg">
     <div class="relative w-full h-full">
         <Image src={PageBackground} alt={"background"} class="w-full h-full object-cover" />
         <div id="fire-wrapper" class="absolute left-[50%] bottom-0 translate-x-[120%] z-20">
-            <LottieAnimation src="Fire.json" class="w-44 -mt-24" autoplay="visible" />
+            <LottieAnimation src="/Fire.json" loop class="w-44 -mt-24" autoplay="visible" />
             <FireFront class="relative -mt-20 z-30" />
         </div>
     </div>
-    <div class="fixed z-50 overflow-hidden backdrop-blur-sm top-1/2 left-1/2 transform -translate-1/2 overscroll-y-contain h-[80%] lg:w-[64rem] w-[75%] bg-amber-50/60 rounded-2xl shadow-2xl border-2 border-gray-200 flex flex-row justify-around">
+    <div id="content" class="opacity-100 duration-500 fixed z-30 overflow-hidden backdrop-blur-sm top-1/2 left-1/2 transform -translate-1/2 overscroll-y-contain h-[80%] lg:w-[64rem] w-[75%] bg-surface-container/60 rounded-2xl shadow-2xl border-2 border-outline-variant flex flex-row justify-around">
         <div class="h-auto w-1/2 m-8 relative">
             <Image
                 id={"visite"}
@@ -52,22 +57,85 @@ import {Image} from "astro:assets";
             />
         </div>
         <div id="right-col" class="w-1/2 relative overflow-hidden bg-white/50 m-8 ml-0 rounded-xl">
-            <div id="right-col-content" class="absolute top-0 left-0 w-full p-8">
-                <div class="h-[32rem] flex flex-col justify-center">
-                    <h2>Visite du chateau et activités</h2>
-                    <p>voici l'aperçue de nos activités</p>
+            <div id="right-col-content" class="absolute top-0 left-0 w-full">
+                <div class="h-[38rem] flex flex-col justify-center">
+                    <h2 class="text-center text-headline-medium font-bold my-8">Visite du chateau et activités</h2>
+                    <p class="mb-8 text-[1.35rem]">
+                        Le château de Berzy vous propose une visite guidée à la découverte de son architecture
+                        médiévale et de son histoire, offrant un voyage fascinant au cœur du patrimoine et
+                        une vue imprenable sur la vallée environnante.
+                    </p>
+                    <p class="text-[1.35rem]">
+                        En complément, le château propose des ateliers manuels pour petits et grands.
+                        Une expérience conviviale et enrichissante à partager en groupe.
+                    </p>
                 </div>
                 <div class="h-[32rem] flex flex-col justify-center">
-                    <h3>pot</h3>
+                    <h3 class="text-center text-headline-medium font-bold my-8">Ateliers potteries</h3>
+                    <p class="mb-8 text-[1.35rem]">
+                        L’atelier de poterie du château de Berzy invite les visiteurs à façonner leurs propres créations
+                        en argile, guidés par un artisan potier. Chacun peut découvrir les gestes traditionnels du
+                        tournage et du modelage, dans une ambiance conviviale et créative.
+                    </p>
+                    <p class="text-[1.35rem]">Les réalisations sont ensuite cuites dans un four à l’ancienne, permettant d’obtenir des pièces
+                        uniques, à la fois authentiques et pleines de caractère. Une belle façon de renouer avec un
+                        savoir-faire ancestral tout en repartant avec un souvenir fait main.
+                    </p>
                 </div>
                 <div class="h-[32rem] flex flex-col justify-center">
-                    <h3>bois</h3>
+                    <h3 class="text-center text-headline-medium font-bold my-8">Ateliers menuiserie</h3>
+                    <p class="mb-8 text-[1.35rem]">
+                        L’atelier de menuiserie du château de Berzy propose une immersion dans l’art du travail du bois
+                        tel qu’il se pratiquait autrefois. Accompagnés par un artisan, les participants apprennent à
+                        manier des outils à l’ancienne — scies, rabots et ciseaux à bois — pour réaliser de
+                        petites créations personnalisées.
+                    </p>
+                    <p class="text-[1.35rem]">
+                        Cet atelier allie découverte, habileté et plaisir du geste, offrant à chacun la satisfaction de
+                        façonner un objet unique dans la pure tradition des artisans médiévaux.
+                    </p>
                 </div>
                 <div class="h-[32rem] flex flex-col justify-center">
-                    <h3>pierre</h3>
+                    <h3 class="text-center text-headline-medium font-bold my-8">Taille de pierre</h3>
+                    <p class="mb-8 text-[1.35rem]">
+                        L’atelier de taille de pierre du château de Berzy permet de s’initier à une discipline
+                        emblématique du savoir-faire médiéval. Encadrés par un tailleur de pierre expérimenté,
+                        les participants découvrent les techniques et les outils traditionnels utilisés pour sculpter la pierre.
+                    </p>
+                    <p class="text-[1.35rem]">
+                        Chacun peut réaliser un motif simple ou une petite sculpture, tout en apprenant la patience et
+                        la précision propres à cet art ancestral. Une expérience immersive qui relie directement au
+                        travail des bâtisseurs du château.
+                    </p>
                 </div>
             </div>
         </div>
-
+    </div>
+</div>
+<div id="contact" class="duration-500 md:w-3/4 w-full bg-surface-container-highest lg:flex rounded-3xl overflow-hidden m-auto max-w-[96rem] fixed z-50 top-1/2 left-1/2 transform -translate-1/2 opacity-0">
+    <div class="left flex-1 p-16 !pb-12 pt-8">
+        <div class="flex gap-4 group rounded-xl mt-2">
+            <div class="transition-all duration-300 flex items-center justify-center rounded-lg  h-12 w-12 border border-outline-variant">
+                <Icon className="h-6 w-6 fill-on-surface-variant" icon={faAddressBook}></Icon>
+            </div>
+            <div><p class="text-title-small mt-0.5">Discutez avec moi</p>
+                <div class="text-on-surface-variant max-w-prose text-body-small">
+                    <p class="mt-1">N'hesitez pas a prendre contact.</p>
+                    <ObfuscatedEmail
+                            class:list="mt-4 inline-block underline-offset-4 underline !text-bold text-secondary focus-visible:text-primary hover:text-primary"
+                            email={import.meta.env.PUBLIC_EMAIL_TO} />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right p-12 bg-surface-container-low flex-2 m-2 pt-8 rounded-2xl">
+        <h2 class="text-headline-large max-w-prose">
+            <span class="text-gradient">Restons en contact</span><br/>
+            pour donner vie à votre projet !
+        </h2>
+        <p class="mt-4 max-w-prose">Partagez les détails de votre projet, vos idées et découvrons
+            ensemble comment je peux vous accompagner dans sa réalisation.
+        </p>
+        <FormContact client:only="react"/>
     </div>
 </div>

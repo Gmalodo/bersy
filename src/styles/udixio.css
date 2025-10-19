@@ -1,0 +1,83 @@
+@plugin "@udixio/tailwind" {
+  colorKeys: surface, surface-container-lowest, surface-container-low, surface-container, surface-container-high, surface-container-highest, on-surface, on-surface-variant, outline, outline-variant, inverse-surface, inverse-on-surface, primary, on-primary, primary-container, on-primary-container, inverse-primary, secondary, on-secondary, secondary-container, on-secondary-container, tertiary, on-tertiary, tertiary-container, on-tertiary-container, error, on-error, error-container, on-error-container, surface-variant, surface-tint, background, on-background;
+  fontStyles: display-large fontWeight[400] fontSize[3.5625] lineHeight[4] letterSpacing[-0.015625] fontFamily[expressive], display-medium fontWeight[400] fontSize[2.8125] lineHeight[3.25] fontFamily[expressive], display-small fontWeight[400] fontSize[2.25] lineHeight[2.75] fontFamily[expressive], headline-large fontWeight[400] fontSize[2] lineHeight[2.5] fontFamily[expressive], headline-medium fontWeight[400] fontSize[1.75] lineHeight[2.25] fontFamily[expressive], headline-small fontWeight[400] fontSize[1.5] lineHeight[2] fontFamily[expressive], title-large fontWeight[400] fontSize[1.375] lineHeight[1.75] fontFamily[neutral], title-medium fontWeight[500] fontSize[1] lineHeight[1.5] fontFamily[neutral] letterSpacing[0.009375], title-small fontWeight[500] fontSize[0.875] lineHeight[1.25] fontFamily[neutral] letterSpacing[0.00625], label-large fontWeight[500] fontSize[0.875] lineHeight[1.25] fontFamily[neutral] letterSpacing[0.00625], label-medium fontWeight[500] fontSize[0.75] lineHeight[1] fontFamily[neutral] letterSpacing[0.03125], label-small fontWeight[500] fontSize[0.6875] lineHeight[1] fontFamily[neutral] letterSpacing[0.03125], body-large fontWeight[400] fontSize[1] lineHeight[1.5625] fontFamily[neutral] letterSpacing[0.03125], body-medium fontWeight[400] fontSize[0.875] lineHeight[1.25] fontFamily[neutral] letterSpacing[0.015625], body-small fontWeight[400] fontSize[0.75] lineHeight[1.125] fontFamily[neutral] letterSpacing[0.025];
+  responsiveBreakPoints: sm 1.125;
+}
+@theme {
+  --color-*: initial;
+  --color-surface: #fffbff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fcf6fe;
+  --color-surface-container: #f5eef8;
+  --color-surface-container-high: #eee7f2;
+  --color-surface-container-highest: #e7e0ec;
+  --color-on-surface: #49454f;
+  --color-on-surface-variant: #787185;
+  --color-outline: #968fa3;
+  --color-outline-variant: #d4cce2;
+  --color-inverse-surface: #040306;
+  --color-inverse-on-surface: #f5eff5;
+  --color-primary: #6d34e3;
+  --color-on-primary: #fcf5ff;
+  --color-primary-container: #8450fb;
+  --color-on-primary-container: #ffffff;
+  --color-inverse-primary: #9a72ff;
+  --color-secondary: #7f62c9;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e9ddff;
+  --color-on-secondary-container: #5b3ea4;
+  --color-tertiary: #c338af;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #f665dc;
+  --color-on-tertiary-container: #41003a;
+  --color-error: #c34a5e;
+  --color-on-error: #ffffff;
+  --color-error-container: #f97386;
+  --color-on-error-container: #6e0523;
+  --color-surface-variant: #e7e0ec;
+  --color-surface-tint: #6d34e3;
+  --color-background: #fffbff;
+  --color-on-background: #49454f;
+}
+@layer theme {
+  .dark {
+    --color-surface: #08070b;
+    --color-surface-container-lowest: #000000;
+    --color-surface-container-low: #0e0d12;
+    --color-surface-container: #18161c;
+    --color-surface-container-high: #1f1d24;
+    --color-surface-container-highest: #27242d;
+    --color-on-surface: #c5beca;
+    --color-on-surface-variant: #918a9f;
+    --color-outline: #605a6d;
+    --color-outline-variant: #322d3e;
+    --color-inverse-surface: #fdf7fe;
+    --color-inverse-on-surface: #322f34;
+    --color-primary: #6d34e3;
+    --color-on-primary: #fcf5ff;
+    --color-primary-container: #6121d7;
+    --color-on-primary-container: #e9deff;
+    --color-inverse-primary: #6e35e4;
+    --color-secondary: #cfbcff;
+    --color-on-secondary: #492a91;
+    --color-secondary-container: #45248c;
+    --color-on-secondary-container: #c9b4ff;
+    --color-tertiary: #ff7ae5;
+    --color-on-tertiary: #56004d;
+    --color-tertiary-container: #f665dc;
+    --color-on-tertiary-container: #41003a;
+    --color-error: #c44b5f;
+    --color-on-error: #ffffff;
+    --color-error-container: #871c34;
+    --color-on-error-container: #ff97a3;
+    --color-surface-variant: #27242d;
+    --color-surface-tint: #6d34e3;
+    --color-background: #08070b;
+    --color-on-background: #c5beca;
+  }
+ 
+}
+@theme {
+  --font-expressive: "sans-serif";
+  --font-neutral: "Roboto", "sans-serif";
+}

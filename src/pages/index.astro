@@ -4,34 +4,37 @@ import HomeBackground from '../components/homeBackground.astro'
 import Page from '../components/page.astro'
 import { Image } from 'astro:assets';
 import chateau from "../assets/berzy-chateau.jpg"
-
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
 ---
 
 <Layout>
 	<div class="relative w-full h-screen">
 		<HomeBackground/>
-		<div id="fade-target" class="relative z-10 h-[550vh] w-full bg-transparent duration-300">
-			<div class="fixed lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-amber-50/60 rounded-2xl shadow-2xl border-2 border-gray-200 flex flex-col justify-around">
-				<h1 class="font-bold font-serif text-center text-4xl lg:mt-12 mt-8">
-					<span class="hidden">les activitées du</span>Chateau de berzy le sec
-				</h1>
-				<p class="lg:m-12 lg:mb-8 m-8 mb-6">Nous vous proposons de découvrir le patrimoine autrement à travers nos stages techniques
-					mêlant savoir-faire et archéologie expérimentale, en visitant nos chantiers de restauration ou en
-					participant à nos activités pédagogiques portées sur l’art de bâtir au Moyen-Age.</p>
-				<Image
-					src={chateau}
-					alt="chateau de berzy le sec"
-					width={350}
-					height={150}
-					class="w-auto m-8 rounded-xl"
-					fetchpriority="high"
-					loading="eager"
-				/>
-				<!--<p class="m-16 mt-12 text-center tracking-wide text-xl font-medium lg:block hidden ">-->
-				<!--	Venez participer a nos activitées ludique dans ce sonptueux cadre qu'est la chateau de berzy !!</p>-->
+		<div class="h-[670vh] w-full text-[#000000]">
+			<div id="fade-target" class="relative z-10 h-[670vh] w-full bg-transparent duration-300">
+				<div class="fixed lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-surface-container/60 backdrop-blur-sm border-2 border-outline-variant rounded-2xl shadow-2xl flex flex-col justify-around">
+					<h1 class="text-headline-large text-center font-extrabold lg:mt-12 mt-8">
+						<span class="hidden">les activitées du</span>Chateau de berzy le sec
+					</h1>
+					<p class="lg:m-12 lg:mb-8 m-8 mb-6">Nous vous proposons de découvrir le patrimoine autrement à travers nos stages techniques
+						mêlant savoir-faire et archéologie expérimentale, en visitant nos chantiers de restauration ou en
+						participant à nos activités pédagogiques portées sur l’art de bâtir au Moyen-Age.</p>
+					<Image
+						src={chateau}
+						alt="chateau de berzy le sec"
+						width={350}
+						height={150}
+						class="w-auto m-8 rounded-xl"
+						fetchpriority="high"
+						loading="eager"
+					/>
+					<!--<p class="m-16 mt-12 text-center tracking-wide text-xl font-medium lg:block hidden ">-->
+					<!--	Venez participer a nos activitées ludique dans ce sonptueux cadre qu'est la chateau de berzy !!</p>-->
+				</div>
 			</div>
+			<Page/>
 		</div>
-		<Page/>
 	</div>
 	<script is:inline>
 	const fadeEl = document.getElementById('fade-target');
@@ -40,6 +43,19 @@ import chateau from "../assets/berzy-chateau.jpg"
 	let ticking = false;
 	let onBot = false;
 	let isAnimated = false;
+
+	const visite = document.getElementById("visite");
+	const pot = document.getElementById("pot");
+	const bois = document.getElementById("bois");
+	const pierre = document.getElementById("pierre");
+	const content = document.getElementById("content");
+	const contact = document.getElementById("contact");
+
+	let visiteHidden = false
+	let potHidden = true
+	let boisHidden = true
+	let pierreHidden = true
+	let isContact = false
 
 	async function smoothScrollTo(target, duration) {
 		return new Promise((resolve) => {
@@ -86,16 +102,6 @@ import chateau from "../assets/berzy-chateau.jpg"
 			document.getElementById("page-bg").classList.add("hidden")
 		}
 
-		const visite = document.getElementById("visite");
-		const pot = document.getElementById("pot");
-		const bois = document.getElementById("bois");
-		const pierre = document.getElementById("pierre");
-
-		let visiteHidden = false
-		let potHidden = true
-		let boisHidden = true
-		let pierreHidden = true
-
 		if (scrollY < 1750 && scrollY > 1150 && visiteHidden){
 			visite.classList.remove("opacity-0");
 			visite.classList.add("opacity-100");
@@ -105,7 +111,7 @@ import chateau from "../assets/berzy-chateau.jpg"
 			visiteHidden = false
 		}
 
-		if (scrollY < 2350 && scrollY > 1750 && potHidden){
+		if (scrollY < 2590 && scrollY > 1750 && potHidden){
 			pot.classList.remove("opacity-0");
 			pot.classList.add("opacity-100");
 			visite.classList.remove("opacity-100");
@@ -117,7 +123,7 @@ import chateau from "../assets/berzy-chateau.jpg"
 			boisHidden = true
 		}
 
-		if (scrollY < 2950 && scrollY > 2350 && boisHidden){
+		if (scrollY < 3550 && scrollY > 2590 && boisHidden){
 			bois.classList.remove("opacity-0");
 			bois.classList.add("opacity-100");
 			pot.classList.remove("opacity-100");
@@ -128,24 +134,44 @@ import chateau from "../assets/berzy-chateau.jpg"
 			boisHidden = false
 			pierreHidden = true
 		}
-		if (scrollY < 3550 && scrollY > 2950 && pierreHidden){
+		if (scrollY < 4100 && scrollY > 3550 && pierreHidden){
 			pierre.classList.remove("opacity-0");
 			pierre.classList.add("opacity-100");
 			bois.classList.remove("opacity-100");
 			bois.classList.add("opacity-0");
-			boisHidden = false
-			pierreHidden = true
+			boisHidden = true
+			pierreHidden = false
+		}
+
+		if (scrollY < 4100 && isContact) {
+			content.classList.remove("opacity-0");
+			content.classList.add("opacity-100");
+			contact.classList.remove("opacity-100");
+			contact.classList.add("opacity-0");
+			isContact = false
+		}
+		console.log(isContact);
+		if (scrollY > 4100 && !isContact) {
+			content.classList.add("opacity-0");
+			content.classList.remove("opacity-100");
+			contact.classList.add("opacity-100");
+			contact.classList.remove("opacity-0");
+			isContact = true
 		}
 
 		if (!ticking) {
 			window.requestAnimationFrame(() => {
 				fadeEl.style.opacity = scrollY > 900 ? '0' : '1';
+				setTimeout(() => {
+					if (scrollY > 900) fadeEl.classList.add("hidden");
+					else fadeEl.classList.remove("hidden");
+				}, 1000)
 				ticking = false;
 			});
 			ticking = true;
 		}
 
-		const contentY = interpolate(scrollY, [1100, 3000], [0, -200 * window.innerHeight / 100]);
+		const contentY = interpolate(scrollY, [1100, 4000], [0, -200 * window.innerHeight / 90]);
 
 		rightCol.style.transform = `translateY(${contentY}px)`;
 	}
