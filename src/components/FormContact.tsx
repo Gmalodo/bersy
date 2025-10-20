@@ -188,7 +188,7 @@ export const FormContact = () => {
             <GoogleReCaptchaProvider
                 reCaptchaKey={import.meta.env.PUBLIC_RECAPTCHA_KEY}
             >
-                <p className={"text-body-small text-outline mt-8 mb-4"}>
+                <p className={"text-body-small text-outline md:mt-8 md:mb-4 mt-4 mb-2"}>
                     Ce site est protégé par reCAPTCHA et la{" "}
                     <a
                         className={"text-secondary"}

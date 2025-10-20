@@ -108,14 +108,15 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
                         travail des bâtisseurs du château.
                     </p>
                 </section>
+                <div id="contact-observer" class="h-full"></div>
             </div>
         </div>
     </div>
 </div>
-<div id="contact" class="duration-500 md:w-3/4 w-full bg-surface-container-highest h-5/6 overflow-y-scroll lg:flex rounded-3xl overflow-hidden m-auto max-w-[96rem] fixed z-50 top-1/2 left-1/2 transform -translate-1/2 opacity-0">
-    <div class="left flex-1 p-16 !pb-12 pt-8">
-        <div class="flex gap-4 group rounded-xl mt-2">
-            <div class="transition-all duration-300 flex items-center justify-center rounded-lg  h-12 w-12 border border-outline-variant">
+<div id="contact" class="hidden duration-500 md:w-3/4 w-full bg-surface-container-highest h-full md:h-5/6 overflow-y-auto lg:flex rounded-3xl overflow-hidden m-auto max-w-[96rem] fixed z-50 top-1/2 left-1/2 transform -translate-1/2">
+    <div class="left flex-1 md:p-16 md:!pb-12 md:pt-8 p-0">
+        <div class="md:flex gap-4 group rounded-xl mt-2 hidden">
+            <div class="transition-all duration-300 flex items-center justify-center rounded-lg h-12 w-12 border border-outline-variant">
                 <Icon className="h-6 w-6 fill-on-surface-variant" icon={faAddressBook}></Icon>
             </div>
             <div><p class="text-title-small mt-0.5">Discutez avec moi</p>
@@ -128,7 +129,7 @@ import {faAddressBook} from "@fortawesome/free-regular-svg-icons"
             </div>
         </div>
     </div>
-    <div class="right p-12 bg-surface-container-low flex-2 m-2 pt-8 rounded-2xl">
+    <div class="right md:p-12 p-6 bg-surface-container-low flex-2 m-2 md:pt-8 pt-2 rounded-2xl">
         <h2 class="text-headline-large font-neutral max-w-prose">
             <span class="text-gradient">Prenons contact</span><br/>
             pour d'avantage d'informations !
