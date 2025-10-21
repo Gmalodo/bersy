@@ -113,11 +113,11 @@ import "@fontsource/roboto/500.css";
 	);
 	sections.forEach((section) => observer.observe(section));
 
+	console.log(window.innerWidth)
 	new IntersectionObserver(
 		(entries) => {
-			console.log(entries[0].isIntersecting)
+			console.log(window.scrollY)
 			if (entries[0].isIntersecting) {
-				console.log("iyufjgvgv")
 				content.classList.remove("opacity-100");
 				content.classList.add("opacity-0");
 				contact.classList.remove("!hidden");
