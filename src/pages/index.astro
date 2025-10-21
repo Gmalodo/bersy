@@ -207,15 +207,11 @@ import "@fontsource/roboto/500.css";
 
 		rightCol.style.transform = `translateY(${contentY}px)`;
 
-		// const rect = contactObserver.getBoundingClientRect();
-		// const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
-		// const currentY = window.scrollY;
-		// scrollDirection = currentY > lastScrollY ? "down" : "up";
-		// lastScrollY = currentY;
-		//
-		// if (!isVisible && window.scrollY < getLimit()) {
-		// 	showContent();
-		// }
+		const rect = contactObserver.getBoundingClientRect();
+		const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+		if (!isVisible && window.scrollY < getLimit()) {
+			showContent();
+		}
 
 	}
 
