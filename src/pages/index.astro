@@ -113,32 +113,35 @@ import "@fontsource/roboto/500.css";
 	);
 	sections.forEach((section) => observer.observe(section));
 
-	console.log(window.innerWidth)
-	document.addEventListener("DOMContentLoaded", () => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					handleVisibility(entry);
-				});
-			},
-			{
-				root: null,
-				threshold: 0.2,
-			}
-		);
+	const observer2 = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				handleVisibility(entry);
+			});
+		},
+		{
+			root: null,
+			threshold: 0.2,
+		}
+	);
 
-		observer.observe(contactObserver);
+	observer2.observe(contactObserver);
 
+	let lastScrollY = window.scrollY;
+	let scrollDirection = "down";
 
-	});
 
 	function handleVisibility(entry) {
+		const currentY = window.scrollY;
+		scrollDirection = currentY > lastScrollY ? "down" : "up";
+		lastScrollY = currentY;
+
 		const visible = entry.isIntersecting;
 		const limit = getLimit();
 
 		if (visible) {
 			hideContent();
-		} else if (!visible && window.scrollY < limit) {
+		} else if (!visible && scrollDirection === "up") {
 			showContent();
 		}
 	}
@@ -204,12 +207,15 @@ import "@fontsource/roboto/500.css";
 
 		rightCol.style.transform = `translateY(${contentY}px)`;
 
-		const rect = contactObserver.getBoundingClientRect();
-		const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
-
-		if (!isVisible && window.scrollY < getLimit()) {
-			showContent();
-		}
+		// const rect = contactObserver.getBoundingClientRect();
+		// const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+		// const currentY = window.scrollY;
+		// scrollDirection = currentY > lastScrollY ? "down" : "up";
+		// lastScrollY = currentY;
+		//
+		// if (!isVisible && window.scrollY < getLimit()) {
+		// 	showContent();
+		// }
 
 	}
 
