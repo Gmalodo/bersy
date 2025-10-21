@@ -8,30 +8,80 @@ import flowers from "../assets/flowers.svg"
 <!doctype html>
 <html lang="en">
 	<head>
-		<link rel="preload" href={chateau.src} as="image"/>
-		<link rel="preload" href={landscape.src} as="image" type="image/svg+xml"/>
-		<link rel="preload" href={landscapeSecond.src} as="image" type="image/svg+xml"/>
-		<link rel="preload" href={flowers.src} as="image" type="image/svg+xml"/>
+		<!-- Encodage & responsive -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Château de Berzy-le-Sec – Activités, Patrimoine & Médiéval</title>
-		<meta name="description" content="Découvrez le patrimoine vivant du Château de Berzy-le-Sec à travers des activités pédagogiques, des stages de restauration et des événements culturels autour du Moyen Âge." />
-		<meta name="robots" content="index, follow" />
-		<!-- TODO Canonical (met à jour l'URL si nécessaire) -->
-		<link rel="canonical" href="https://www.exemple.com/" />
-		<meta http-equiv="Content-Language" content="fr" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- SEO de base -->
+		<title>Château de Berzy — Visite et Ateliers Médiévaux</title>
+		<meta
+			name="description"
+			content="Découvrez le Château de Berzy : une visite historique au cœur du patrimoine médiéval et des ateliers manuels de poterie, menuiserie et taille de pierre. Vivez une expérience authentique et conviviale."
+		/>
+		<meta name="title" content="Château de Berzy — Visite et Ateliers Médiévaux" />
+		<meta
+			name="keywords"
+			content="château de Berzy, visite château, ateliers médiévaux, poterie, menuiserie, taille de pierre, patrimoine, Aisne, Soissons, tourisme culturel"
+		/>
+		<meta name="author" content="Château de Berzy" />
+
+		<!-- Favicon & manifest -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta property="og:title" content="Château de Berzy-le-Sec" />
-		<meta property="og:description" content="Activités, patrimoine vivant, stages et médiéval au Château de Berzy-le-Sec." />
+		<link rel="apple-touch-icon" href="/berzy-chateau.jpg" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<!-- Canonical -->
+		<link rel="canonical" href="https://chateaudeberzy.fr/" />
+
+		<!-- Open Graph (Facebook / LinkedIn) -->
 		<meta property="og:type" content="website" />
-		<!--TODO-->
-		<meta property="og:url" content="https://www.exemple.com/" />
-		<meta property="og:image" content="../assets/berzy-chateau.jpg" />
+		<meta property="og:url" content="https://chateaudeberzy.fr/" />
+		<meta property="og:title" content="Château de Berzy — Visite et Ateliers Médiévaux" />
+		<meta
+			property="og:description"
+			content="Plongez dans l’histoire au Château de Berzy : visites guidées, ateliers de poterie, menuiserie et taille de pierre. Une journée d’immersion médiévale pour toute la famille."
+		/>
+		<meta property="og:image" content="https://chateaudeberzy.fr/berzy-chateau.jpg" />
+		<meta property="og:locale" content="fr_FR" />
+		<meta property="og:site_name" content="Château de Berzy" />
+
+		<!-- Twitter Cards -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="Château de Berzy-le-Sec" />
-		<meta name="twitter:description" content="Activités pédagogiques et patrimoine médiéval à découvrir au Château de Berzy-le-Sec." />
-		<meta name="twitter:image" content="../assets/berzy-chateau.jpg" />
+		<meta name="twitter:url" content="https://chateaudeberzy.fr/" />
+		<meta name="twitter:title" content="Château de Berzy — Visite et Ateliers Médiévaux" />
+		<meta
+			name="twitter:description"
+			content="Visitez le Château de Berzy et participez à nos ateliers artisanaux inspirés du Moyen Âge. Poterie, menuiserie et taille de pierre pour petits et grands."
+		/>
+		<meta name="twitter:image" content="https://chateaudeberzy.fr/berzy-chateau.jpg" />
+
+		<!-- Accessibilité et performances -->
+		<meta name="theme-color" content="#8b7355" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<!-- Schema.org JSON-LD pour enrichir les résultats de recherche -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "TouristAttraction",
+				"name": "Château de Berzy",
+				"url": "https://chateaudeberzy.fr/",
+				"description": "Visite du Château de Berzy et ateliers manuels médiévaux : poterie, menuiserie et taille de pierre.",
+				"image": "https://chateaudeberzy.fr/berzy-chateau.jpg",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "Rue du Château",
+					"addressLocality": "Berzy-le-Sec",
+					"postalCode": "02200",
+					"addressCountry": "FR"
+				},
+				"openingHours": "Tu-Su 10:00-18:00"
+			}
+		</script>
+
+		<!-- Astro meta -->
+		<meta name="generator" content={Astro.generator} />
+
 	</head>
 	<body>
 		<slot />

@@ -1,0 +1,12 @@
+{
+  "name": "Château de Berzy",
+  "short_name": "Berzy",
+  "description": "Visitez le Château de Berzy et participez à des ateliers médiévaux : poterie, menuiserie et taille de pierre. Une expérience historique et conviviale pour tous.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f0e6",
+  "theme_color": "#8b7355",
+  "scope": "/"
+}
