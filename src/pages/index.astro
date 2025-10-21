@@ -48,8 +48,6 @@ import "@fontsource/roboto/500.css";
 	const contact = document.getElementById("contact");
 	const contactObserver = document.getElementById("contact-observer");
 
-	let isContact = false
-
 	async function smoothScrollTo(target, duration) {
 		return new Promise((resolve) => {
 			const scrollY = window.scrollY;
@@ -117,18 +115,19 @@ import "@fontsource/roboto/500.css";
 
 	new IntersectionObserver(
 		(entries) => {
-			console.log(window.scrollY)
+			console.log(entries[0].isIntersecting)
 			if (entries[0].isIntersecting) {
+				console.log("iyufjgvgv")
 				content.classList.remove("opacity-100");
 				content.classList.add("opacity-0");
-				contact.classList.remove("hidden");
+				contact.classList.remove("!hidden");
 			} else if (!entries[0].isIntersecting &&
 				window.scrollY < 4200 &&
 				window.innerWidth >= 700)
 			{
 				content.classList.remove("opacity-0");
 				content.classList.add("opacity-100");
-				contact.classList.add("hidden");
+				contact.classList.add("!hidden");
 			} else if (!entries[0].isIntersecting &&
 				window.scrollY < 4500 &&
 				window.innerWidth < 700 &&
@@ -136,7 +135,7 @@ import "@fontsource/roboto/500.css";
 			{
 				content.classList.remove("opacity-0");
 				content.classList.add("opacity-100");
-				contact.classList.add("hidden");
+				contact.classList.add("!hidden");
 			} else if (!entries[0].isIntersecting &&
 				window.scrollY < 5200 &&
 				window.innerWidth < 650 &&
@@ -144,14 +143,14 @@ import "@fontsource/roboto/500.css";
 			{
 				content.classList.remove("opacity-0");
 				content.classList.add("opacity-100");
-				contact.classList.add("hidden");
+				contact.classList.add("!hidden");
 			} else if (!entries[0].isIntersecting &&
 				window.scrollY < 5500 &&
 				window.innerWidth < 450)
 			{
 				content.classList.remove("opacity-0");
 				content.classList.add("opacity-100");
-				contact.classList.add("hidden");
+				contact.classList.add("!hidden");
 			}
 		}, {
 			root: null,
