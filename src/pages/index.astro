@@ -168,7 +168,6 @@ import "@fontsource/roboto/500.css";
 	async function onScroll() {
 		let scrollY = window.scrollY;
 		if (scrollY > 100 && !onBot && !isAnimated) {
-			console.log(window.innerWidth)
 			if (window.innerWidth > 1024) {
 				isAnimated = true;
 				await smoothScrollTo(1150, 2000);
