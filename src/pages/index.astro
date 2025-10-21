@@ -114,48 +114,53 @@ import "@fontsource/roboto/500.css";
 	sections.forEach((section) => observer.observe(section));
 
 	console.log(window.innerWidth)
-	new IntersectionObserver(
-		(entries) => {
-			console.log(window.scrollY)
-			if (entries[0].isIntersecting) {
-				content.classList.remove("opacity-100");
-				content.classList.add("opacity-0");
-				contact.classList.remove("!hidden");
-			} else if (!entries[0].isIntersecting &&
-				window.scrollY < 4200 &&
-				window.innerWidth >= 700)
+	document.addEventListener("DOMContentLoaded", () => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					handleVisibility(entry);
+				});
+			},
 			{
-				content.classList.remove("opacity-0");
-				content.classList.add("opacity-100");
-				contact.classList.add("!hidden");
-			} else if (!entries[0].isIntersecting &&
-				window.scrollY < 4500 &&
-				window.innerWidth < 700 &&
-				window.innerWidth >= 650)
-			{
-				content.classList.remove("opacity-0");
-				content.classList.add("opacity-100");
-				contact.classList.add("!hidden");
-			} else if (!entries[0].isIntersecting &&
-				window.scrollY < 5200 &&
-				window.innerWidth < 650 &&
-				window.innerWidth >= 450)
-			{
-				content.classList.remove("opacity-0");
-				content.classList.add("opacity-100");
-				contact.classList.add("!hidden");
-			} else if (!entries[0].isIntersecting &&
-				window.scrollY < 5500 &&
-				window.innerWidth < 450)
-			{
-				content.classList.remove("opacity-0");
-				content.classList.add("opacity-100");
-				contact.classList.add("!hidden");
+				root: null,
+				threshold: 0.2,
 			}
-		}, {
-			root: null,
-			threshold: 0.2,
-		}).observe(contactObserver)
+		);
+
+		observer.observe(contactObserver);
+
+
+	});
+
+	function handleVisibility(entry) {
+		const visible = entry.isIntersecting;
+		const limit = getLimit();
+
+		if (visible) {
+			hideContent();
+		} else if (!visible && window.scrollY < limit) {
+			showContent();
+		}
+	}
+
+	function getLimit() {
+		if (window.innerWidth >= 700) return 4200;
+		if (window.innerWidth >= 650) return 4500;
+		if (window.innerWidth >= 450) return 5200;
+		return 5500;
+	}
+
+	function showContent() {
+		content.classList.remove("opacity-0");
+		content.classList.add("opacity-100");
+		contact.classList.add("!hidden");
+	}
+
+	function hideContent() {
+		content.classList.remove("opacity-100");
+		content.classList.add("opacity-0");
+		contact.classList.remove("!hidden");
+	}
 
 	async function onScroll() {
 		let scrollY = window.scrollY;
@@ -198,6 +203,14 @@ import "@fontsource/roboto/500.css";
 		const contentY = interpolate(scrollY, [1100, 6500], [0, -500 * window.innerHeight / 100]);
 
 		rightCol.style.transform = `translateY(${contentY}px)`;
+
+		const rect = contactObserver.getBoundingClientRect();
+		const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+
+		if (!isVisible && window.scrollY < getLimit()) {
+			showContent();
+		}
+
 	}
 
 	window.addEventListener('scroll', onScroll, { passive: true });
