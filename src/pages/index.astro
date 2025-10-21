@@ -48,10 +48,20 @@ import "@fontsource/roboto/500.css";
 	const contact = document.getElementById("contact");
 	const contactObserver = document.getElementById("contact-observer");
 
+	function sigmoid(x) {
+		return 1 / (1 + Math.exp(-x));
+	}
+
+	function sigmoidDerivative(x) {
+		const s = sigmoid(x);
+		const d = s * (1 - s);
+		return 1 + 0.7 * d;
+	}
+
 	async function smoothScrollTo(target, duration) {
 		return new Promise((resolve) => {
-			const scrollY = window.scrollY;
-			const distance = target - scrollY;
+			const startY = window.scrollY;
+			const distance = target - startY;
 			let startTime = null;
 
 			function animation(currentTime) {
@@ -59,9 +69,14 @@ import "@fontsource/roboto/500.css";
 				const elapsed = currentTime - startTime;
 				const progress = Math.min(elapsed / duration, 1);
 
-				const ease = progress * progress;
+				const x = progress * 12 - 6;
 
-				window.scrollTo(0, scrollY + distance * ease);
+				const speed = sigmoidDerivative(x);
+				console.log(target, progress, speed);
+				const position = startY + distance * progress * speed;
+
+				window.scrollTo(0, position);
+
 
 				if (elapsed < duration) {
 					requestAnimationFrame(animation);
