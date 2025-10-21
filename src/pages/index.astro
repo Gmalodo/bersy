@@ -160,19 +160,23 @@ import "@fontsource/roboto/500.css";
 	async function onScroll() {
 		let scrollY = window.scrollY;
 		if (scrollY > 100 && !onBot && !isAnimated) {
-			isAnimated = true;
-			await smoothScrollTo(1150, 2000);
-			scrollY = 1300
+			if (window.innerWidth <= 1024) {
+				isAnimated = true;
+				await smoothScrollTo(1150, 2000);
+				scrollY = 1300
+				isAnimated = false;
+			}
 			onBot = true;
-			isAnimated = false;
 			document.getElementById("page-bg").classList.remove("hidden")
 		}
 		if (scrollY < 1150 && onBot && !isAnimated) {
-			isAnimated = true;
-			await smoothScrollTo(0, 1000);
-			scrollY = 0
+			if (window.innerWidth <= 1024) {
+				isAnimated = true;
+				await smoothScrollTo(0, 1000);
+				scrollY = 0
+				isAnimated = false;
+			}
 			onBot = false;
-			isAnimated = false;
 			document.getElementById("page-bg").classList.add("hidden")
 		}
 
