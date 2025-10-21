@@ -12,7 +12,7 @@ import "@fontsource/roboto/500.css";
 	<div class="relative w-full h-screen">
 		<HomeBackground/>
 		<div class="h-[1000vh] w-full text-[#000000]">
-			<div id="fade-target" class="relative z-10 h-[1000vh] w-full bg-transparent duration-300">
+			<div id="fade-target" class="relative z-10 w-full bg-transparent duration-300">
 				<div class="fixed overflow-hidden lg:w-[40rem] lg:h-[40rem] h-[35rem] w-[90%] lg:left-40 left-1/2 top-1/2 transform lg:-translate-y-1/2 -translate-y-3/5 -translate-x-1/2 lg:translate-x-0 bg-surface-container/60 backdrop-blur-sm border-2 border-outline-variant rounded-2xl shadow-2xl flex flex-col justify-around">
 					<h1 class="text-headline-large font-neutral text-center font-extrabold lg:mt-12 mt-8">
 						<span class="hidden">les activitées du</span>Chateau de berzy le sec
@@ -160,29 +160,36 @@ import "@fontsource/roboto/500.css";
 	async function onScroll() {
 		let scrollY = window.scrollY;
 		if (scrollY > 100 && !onBot && !isAnimated) {
-			isAnimated = true;
-			await smoothScrollTo(1150, 2000);
-			scrollY = 1300
+			console.log(window.innerWidth)
+			if (window.innerWidth > 1024) {
+				isAnimated = true;
+				await smoothScrollTo(1150, 2000);
+				scrollY = 1300
+				isAnimated = false;
+			}
 			onBot = true;
-			isAnimated = false;
 			document.getElementById("page-bg").classList.remove("hidden")
 		}
 		if (scrollY < 1150 && onBot && !isAnimated) {
-			isAnimated = true;
-			await smoothScrollTo(0, 1000);
-			scrollY = 0
+			if (window.innerWidth > 1024) {
+				isAnimated = true;
+				await smoothScrollTo(0, 1000);
+				scrollY = 0
+				isAnimated = false;
+			}
 			onBot = false;
-			isAnimated = false;
 			document.getElementById("page-bg").classList.add("hidden")
 		}
 
 		if (!ticking) {
 			window.requestAnimationFrame(() => {
-				fadeEl.style.opacity = scrollY > 900 ? '0' : '1';
-				setTimeout(() => {
-					if (scrollY > 900) fadeEl.classList.add("hidden");
-					else fadeEl.classList.remove("hidden");
-				}, 1000)
+				if (scrollY >= 1150) {
+						fadeEl.classList.add("hidden");
+				}
+				else {
+					fadeEl.classList.remove("hidden");
+				}
+
 				ticking = false;
 			});
 			ticking = true;
